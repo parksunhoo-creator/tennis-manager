@@ -317,11 +317,6 @@ document.getElementById(
 </button>
 
 <br><br>
-
-<input
-    type="file"
-    id="importFile"
-    onchange="importPlayers(event)">
     </div>
 
     <div id="playerList"></div>
@@ -460,7 +455,23 @@ document.getElementById(
 }
 
 renderMemberSection();
+<button onclick="addMember()">
+회원 추가
+</button>
 
+<br><br>
+
+<button onclick="exportPlayers()">
+💾 회원 백업
+</button>
+
+<br><br>
+
+<input
+    type="file"
+    id="importFile"
+    onchange="importPlayers(event)">
+        
 renderPlayers();
 
 renderScheduleSection();
