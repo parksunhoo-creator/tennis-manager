@@ -1,7 +1,3 @@
-<button onclick="savePDF()">
-📄 PDF 저장
-</button>
-
 loadPlayers();
 
 function renderMemberSection() {
@@ -317,6 +313,13 @@ document.getElementById(
 </button>
 
 <br><br>
+
+<input
+    type="file"
+    id="importFile"
+    onchange="importPlayers(event)">
+
+<br><br>
     </div>
 
     <div id="playerList"></div>
@@ -446,6 +449,12 @@ document.getElementById(
 
         </button>
 
+        <br><br>
+
+<button onclick="savePDF()">
+📄 PDF 저장
+</button>
+
     </div>
 
     <div id="matchResult"></div>
@@ -460,33 +469,48 @@ renderPlayers();
 
 renderScheduleSection();
 
-function savePDF(){
+function savePDF() {
 
+    console.log(
+    document.getElementById(
+        "matchResult"
+    )
+);
     const element =
         document.getElementById(
             "matchResult"
         );
 
-    html2pdf()
-        .set({
-            margin: 10,
-            filename:
-                'Tennis_Match.pdf',
-            image:{
-                type:'jpeg',
-                quality:0.98
-            },
-            html2canvas:{
-                scale:2
-            },
-            jsPDF:{
-                unit:'mm',
-                format:'a4',
-                orientation:'portrait'
-            }
-        })
-        .from(element)
-        .save();
+    setTimeout(() => {
+
+        html2pdf()
+            .set({
+                margin: 5,
+
+                filename:
+                    "Tennis_Match.pdf",
+
+                image: {
+                    type: "jpeg",
+                    quality: 1
+                },
+
+                html2canvas: {
+                    scale: 1,
+                    scrollY: 0,
+                    useCORS: true
+                },
+
+                jsPDF: {
+                    unit: "mm",
+                    format: "a4",
+                    orientation: "portrait"
+                }
+            })
+            .from(element)
+            .save();
+
+    }, 500);
 
 }
 function exportPlayers(){
