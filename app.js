@@ -310,7 +310,18 @@ document.getElementById(
             회원 추가
 
         </button>
+<br><br>
 
+<button onclick="exportPlayers()">
+💾 회원 백업
+</button>
+
+<br><br>
+
+<input
+    type="file"
+    id="importFile"
+    onchange="importPlayers(event)">
     </div>
 
     <div id="playerList"></div>
@@ -519,12 +530,7 @@ function exportPlayers(){
     a.click();
 
 }
-<input
-    type="file"
-    id="importFile"
-    onchange="importPlayers(event)">
-
-        function importPlayers(event){
+function importPlayers(event){
 
     const file =
         event.target.files[0];
