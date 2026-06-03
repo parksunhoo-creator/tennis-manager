@@ -1,3 +1,7 @@
+<button onclick="savePDF()">
+📄 PDF 저장
+</button>
+
 loadPlayers();
 
 function renderMemberSection() {
@@ -449,3 +453,101 @@ renderMemberSection();
 renderPlayers();
 
 renderScheduleSection();
+
+function savePDF(){
+
+    const element =
+        document.getElementById(
+            "matchResult"
+        );
+
+    html2pdf()
+        .set({
+            margin: 10,
+            filename:
+                'Tennis_Match.pdf',
+            image:{
+                type:'jpeg',
+                quality:0.98
+            },
+            html2canvas:{
+                scale:2
+            },
+            jsPDF:{
+                unit:'mm',
+                format:'a4',
+                orientation:'portrait'
+            }
+        })
+        .from(element)
+        .save();
+
+}
+function exportPlayers(){
+
+    const data =
+        JSON.stringify(
+            players,
+            null,
+            2
+        );
+
+    const blob =
+        new Blob(
+            [data],
+            {
+                type:
+                "application/json"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+    const a =
+        document.createElement(
+            "a"
+        );
+
+    a.href = url;
+
+    a.download =
+        "players.json";
+
+    a.click();
+
+}
+<input
+    type="file"
+    id="importFile"
+    onchange="importPlayers(event)">
+
+        function importPlayers(event){
+
+    const file =
+        event.target.files[0];
+
+    if(!file) return;
+
+    const reader =
+        new FileReader();
+
+    reader.onload =
+        function(e){
+
+            players =
+                JSON.parse(
+                    e.target.result
+                );
+
+            savePlayers();
+
+            renderPlayers();
+
+        };
+
+    reader.readAsText(file);
+
+}
